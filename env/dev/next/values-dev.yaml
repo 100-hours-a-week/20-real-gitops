@@ -1,0 +1,8 @@
+image:
+  repository: 123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/next-app
+  tag: dev-20240617-a1b2c3
+env:
+  apiUrl: https://cadev.kakaotech.com
+ingress:
+  enabled: true
+  host: cadev.kakaotech.com
