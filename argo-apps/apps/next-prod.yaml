@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: next-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/100-hours-a-week/20-real-gitops
+    targetRevision: main
+    path: apps/base/next
+    helm:
+      valueFiles:
+      - ../../../env/prod/next/values-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: next-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

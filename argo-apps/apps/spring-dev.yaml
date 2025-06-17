@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spring-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/100-hours-a-week/20-real-gitops
+    targetRevision: dev
+    path: apps/base/spring
+    helm:
+      valueFiles:
+      - ../../../env/dev/spring/values-dev.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: spring-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
