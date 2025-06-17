@@ -1,0 +1,10 @@
+replicaCount: 2
+image:
+  repository: 123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/spring-app
+  tag: prod-20240617-a1b2c3
+  pullPolicy: IfNotPresent
+env:
+  profile: prod
+ingress:
+  enabled: true
+  host: api.kakaotech.com

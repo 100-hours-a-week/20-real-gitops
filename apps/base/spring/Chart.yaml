@@ -1,0 +1,6 @@
+apiVersion: v2
+name: spring
+version: 1.0.0
+description: Spring Helm chart
+type: application
+appVersion: "1.0.0"
