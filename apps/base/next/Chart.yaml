@@ -1,0 +1,6 @@
+apiVersion: v2
+name: next
+version: 1.0.0
+description: Next.js Helm chart
+type: application
+appVersion: "1.0.0"

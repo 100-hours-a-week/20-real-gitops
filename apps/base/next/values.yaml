@@ -1,0 +1,10 @@
+replicaCount: 1
+image:
+  repository: 123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/next-app
+  tag: latest
+  pullPolicy: IfNotPresent
+env:
+  apiUrl: https://api.kakaotech.com
+ingress:
+  enabled: true
+  host: www.kakaotech.com
