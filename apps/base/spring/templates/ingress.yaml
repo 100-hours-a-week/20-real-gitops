@@ -1,18 +1,16 @@
-{% comment %} {{- if .Values.ingress.enabled -}}
+{{- if .Values.ingress.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "spring.fullname" . }}
-  labels:
-    {{- include "spring.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+  name: {{ .Release.Name }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- if .Values.ingress.annotations }}
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+    {{- else }}
+    kubernetes.io/ingress.class: nginx
+    {{- end }}
 spec:
-  {{- with .Values.ingress.className }}
-  ingressClassName: {{ . }}
-  {{- end }}
+  ingressClassName: nginx
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
@@ -30,14 +28,12 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ .path }}
-            {{- with .pathType }}
-            pathType: {{ . }}
-            {{- end }}
+            pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "spring.fullname" $ }}
+                name: {{ $.Release.Name }}-active
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
     {{- end }}
-{{- end }} {% endcomment %}
+{{- end }}
