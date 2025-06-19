@@ -19,8 +19,6 @@ spec:
               service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
           config:
             use-proxy-protocol: "true"
-          ingress:         # ← 이 부분 추가
-            enabled: false # ← 샘플 Ingress 리소스 비활성화
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
