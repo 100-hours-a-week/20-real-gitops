@@ -5,4 +5,4 @@ env:
   apiUrl: https://api.kakaotech.com
 ingress:
   enabled: true
-  host: www.kakaotech.com
+  host: next.kakaotech.com #임시 url 발급
