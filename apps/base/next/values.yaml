@@ -7,4 +7,4 @@ env:
   apiUrl: https://api.kakaotech.com
 ingress:
   enabled: true
-  host: www.kakaotech.com
+  host: next.kakaotech.com  #ingress 테스트 용도로 임시 URL 발급
