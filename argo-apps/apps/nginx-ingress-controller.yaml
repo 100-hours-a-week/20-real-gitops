@@ -14,9 +14,10 @@ spec:
         controller:
           service:
             type: LoadBalancer
+            loadBalancerClass: service.k8s.aws/nlb
             annotations:
-              service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-              service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+              service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: |
+                proxy_protocol_v2.enabled=true
           config:
             use-proxy-protocol: "true"
   destination:
