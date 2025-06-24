@@ -17,6 +17,10 @@ spec:
             nodePorts:
               http: 32080
             externalTrafficPolicy: Local
+          admissionWebhooks:
+            enabled: true
+            patch:
+              enabled: true 
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
