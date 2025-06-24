@@ -1,7 +1,4 @@
-replicaCount: 2
-
-image:
-  repository: ktb-ca-infra-registry
+repository: ktb-ca-infra-registry
   tag: latest
   pullPolicy: Always
 

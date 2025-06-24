@@ -1,8 +1,28 @@
+replicaCount: 2
+
 image:
   repository: 123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/next-app
   tag: prod-20240617-a1b2c3
+  pullPolicy: IfNotPresent
+
 env:
   apiUrl: https://api.kakaotech.com
+
 ingress:
   enabled: true
-  host: next.kakaotech.com #임시 url 발급
+  host: www.kakaotech.com
+  
+resources:
+  requests:
+    cpu: 300m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
