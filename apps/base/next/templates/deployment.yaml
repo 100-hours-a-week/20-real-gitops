@@ -19,10 +19,5 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: NEXT_PUBLIC_API_URL
-              value: "{{ .Values.env.apiUrl }}"
-            - name: ANALYTICS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: next-secrets
-                  key: ANALYTICS_KEY
+            - name: ENV
+              value: {{ .Values.env.ENV }}

@@ -6,8 +6,8 @@ image:
   pullPolicy: Always
 
 env:
-  apiUrl: https://api.kakaotech.com
-
+  ENV : production
+  
 ingress: 
   enabled: true
   host: www.kakaotech.com
