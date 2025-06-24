@@ -18,9 +18,7 @@ spec:
               http: 32080
             externalTrafficPolicy: Local
           admissionWebhooks:
-            enabled: true
-            patch:
-              enabled: true 
+            enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
