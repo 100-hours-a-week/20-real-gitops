@@ -12,6 +12,7 @@ spec:
     helm:
       values: |
         controller:
+          kind: DaemonSet
           service:
             type: NodePort
             nodePorts:
