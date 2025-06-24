@@ -13,12 +13,11 @@ spec:
       values: |
         controller:
           service:
-            type: LoadBalancer
-            annotations:
-              service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-              service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-          config:
-            use-proxy-protocol: "true"
+            type: NodePort
+            nodePorts:
+              http: 32080
+              https: 32443
+            externalTrafficPolicy: Local
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
