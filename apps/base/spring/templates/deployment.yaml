@@ -1,9 +1,18 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    blueGreen:
+      activeService: {{ .Release.Name }}-active
+      previewService: {{ .Release.Name }}-preview
+      autoPromotionEnabled: true
+      autoPromotionSeconds: 30
+      scaleDownDelaySeconds: 30
   selector:
     matchLabels:
       app: {{ .Release.Name }}
@@ -12,17 +21,54 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: download-otel-agent
+          image: amazon/aws-cli
+          command: ['sh', '-c']
+          args:
+            - |
+              aws s3 cp s3://{{ .Values.otelAgent.s3Bucket }}/otel-agent.jar /otel-agent/otel-agent.jar
+          volumeMounts:
+            - name: otel-agent
+              mountPath: /otel-agent
       containers:
-        - name: spring
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              exec java {{ join " " .Values.javaOpts }} -jar /app/app.jar
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: otel-metrics
+              containerPort: 9292
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: "{{ .Values.env.profile }}"
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: spring-secrets
-                  key: DB_PASSWORD
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: otel-agent
+              mountPath: /otel-agent
+            - name: logs
+              mountPath: /home/ec2-user/logs
+      volumes:
+        - name: otel-agent
+          emptyDir: {}
+        - name: logs
+          {{- if .Values.logging.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-logs
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
