@@ -6,7 +6,7 @@ image:
   pullPolicy: Always
 
 env:
-  apiUrl: https://cadev.kakaotech.com
+  ENV : development
 
 ingress: 
   enabled: true
