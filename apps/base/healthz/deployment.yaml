@@ -15,6 +15,13 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx
+          image: nginx:alpine
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: dummy-healthz-conf
