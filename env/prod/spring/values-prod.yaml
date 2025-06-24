@@ -1,6 +1,6 @@
 repository: ktb-ca-infra-registry
-  tag: latest
-  pullPolicy: Always
+tag: latest
+pullPolicy: Always
 
 resources:
   requests:
