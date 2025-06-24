@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops
-    targetRevision: dev
+    targetRevision: main
     path: apps/base/next
     helm:
       valueFiles:
