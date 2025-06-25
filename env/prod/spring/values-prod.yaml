@@ -1,5 +1,5 @@
-repository: ktb-ca-infra-registry
-tag: latest
+repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
+tag: prod-v17.0.0-cf7e94
 pullPolicy: Always
 
 resources:
