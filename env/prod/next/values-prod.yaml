@@ -37,6 +37,9 @@ readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
 
+service:
+  type: ClusterIP
+  
 autoscaling:
   enabled: true
   minReplicas: 2
