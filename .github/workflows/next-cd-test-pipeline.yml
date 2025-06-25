@@ -9,6 +9,9 @@ jobs:
     steps:
     - name: Checkout GitOps repo
       uses: actions/checkout@v4
+      with:
+        repository: 100-hours-a-week/20-real-gitops
+        token: ${{ secrets.PAT_GITOPS }}
 
     - name: Update image repository and tag
       run: |
