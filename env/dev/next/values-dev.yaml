@@ -1,13 +1,13 @@
 replicaCount: 2
 
 image:
-  repository: ktb-ca-infra-registry
-  tag: latest
+  repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
+  tag: development-v4.11.0-cf1723
   pullPolicy: Always
 
 imagePullSecrets:
         - name: ecr-registry-secret
-        
+
 env:
   ENV : development
 
