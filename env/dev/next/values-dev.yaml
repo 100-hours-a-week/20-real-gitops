@@ -5,6 +5,9 @@ image:
   tag: latest
   pullPolicy: Always
 
+imagePullSecrets:
+        - name: ecr-registry-secret
+        
 env:
   ENV : development
 

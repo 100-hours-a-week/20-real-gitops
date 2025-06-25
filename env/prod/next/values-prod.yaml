@@ -5,9 +5,12 @@ image:
   tag: development-v4.11.0-cf1723
   pullPolicy: Always
 
+imagePullSecrets:
+        - name: ecr-registry-secret
+
 env:
   ENV : production
-  
+
 ingress: 
   enabled: true
   host: www.kakaotech.com
