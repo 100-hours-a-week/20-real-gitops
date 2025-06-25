@@ -2,8 +2,17 @@ apiVersion: apps/v1
 kind: Rollout
 metadata:
   name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    blueGreen:
+      activeService: {{ .Release.Name }}-active
+      previewService: {{ .Release.Name }}-preview
+      autoPromotionEnabled: true
+      autoPromotionSeconds: 30
+      scaleDownDelaySeconds: 30
   selector:
     matchLabels:
       app: {{ .Release.Name }}
@@ -25,3 +34,9 @@ spec:
           env:
             - name: ENV
               value: "{{ .Values.env.ENV }}"
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
