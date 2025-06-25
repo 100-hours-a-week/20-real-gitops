@@ -23,6 +23,19 @@ resources:
     cpu: 500m
     memory: 512Mi
 
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 3000
+  initialDelaySeconds: 60
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 10
 
 autoscaling:
   enabled: true
