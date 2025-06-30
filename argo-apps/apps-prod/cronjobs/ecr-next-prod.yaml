@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cronjob-next-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/100-hours-a-week/20-real-gitops.git
+    targetRevision: main
+    path: system/cronjobs/prod/ecr-next-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: next-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
