@@ -55,7 +55,12 @@ spec:
           env:
             {{- range .Values.env }}
             - name: {{ .name }}
+              {{- if .valueFrom }}
+              valueFrom:
+                {{- toYaml .valueFrom | nindent 16 }}
+              {{- else }}
               value: {{ .value | quote }}
+              {{- end }}
             {{- end }}
           volumeMounts:
             - name: otel-agent
