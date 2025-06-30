@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apps-root
+  name: apps-root-prod
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops
     targetRevision: main
-    path: argo-apps/apps
+    path: argo-apps/apps-prod
     directory:
       recurse: true
   destination:
