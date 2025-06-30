@@ -48,6 +48,9 @@ env:
       fieldPath: metadata.namespace
 - name: CONTAINER_NAME
   value: "spring"
+- name: AWS_REGION
+  value: ap-northeast-2
+
 javaOpts:
 - "-javaagent:/otel-agent/otel-agent.jar"
 - "-Dotel.service.name=${OTEL_SERVICE_NAME}"
