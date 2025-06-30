@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops.git
     targetRevision: main
-    path: system/cronjobs/prod/ecr-spring-prod.yaml
+    path: ../../../system/cronjobs/prod/ecr-spring-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: spring-prod
