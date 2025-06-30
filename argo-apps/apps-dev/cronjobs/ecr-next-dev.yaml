@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops.git
     targetRevision: main
-    path: ../../../system/cronjobs/dev/ecr-next-dev.yaml
+    path: system/cronjobs/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: next-dev
