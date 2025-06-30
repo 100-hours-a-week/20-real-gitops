@@ -1,8 +1,7 @@
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: prod-v17.0.0-cf7e94
+  tag: prod-v19.0.0-d49b58
   pullPolicy: Always
-
 resources:
   requests:
     cpu: 500m
@@ -10,82 +9,73 @@ resources:
   limits:
     cpu: 1000m
     memory: 1Gi
-
 autoscaling:
   enabled: true
   minReplicas: 2
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
-
 livenessProbe:
   httpGet:
     path: /monitoring-prod/health
     port: 9292
   initialDelaySeconds: 60
   periodSeconds: 10
-
 readinessProbe:
   httpGet:
     path: /monitoring-prod/health
     port: 9292
   initialDelaySeconds: 30
   periodSeconds: 10
-
 env:
-- name: SPRING_PROFILES_ACTIVE
-  value: "prod"
-- name: JAVA_OPTS
-  value: "-Xms512m -Xmx1024m"
-- name: OTEL_SERVICE_NAME
-  value: "spring-prod"
-- name: POD_NAME
-  valueFrom:
-    fieldRef:
-      fieldPath: metadata.name
-- name: NAMESPACE
-  valueFrom:
-    fieldRef:
-      fieldPath: metadata.namespace
-- name: CONTAINER_NAME
-  valueFrom:
-    fieldRef:
-      fieldPath: spec.containers[0].name
-
+  - name: SPRING_PROFILES_ACTIVE
+    value: "prod"
+  - name: JAVA_OPTS
+    value: "-Xms512m -Xmx1024m"
+  - name: OTEL_SERVICE_NAME
+    value: "spring-prod"
+  - name: POD_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: NAMESPACE
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.namespace
+  - name: CONTAINER_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.containers[0].name
 javaOpts:
-- "-javaagent:/otel-agent/otel-agent.jar"
-- "-Dotel.service.name=${OTEL_SERVICE_NAME}"
-- "-Dotel.exporter.otlp.endpoint=https://collector.kakaotech.com/"
-- "-Dotel.instrumentation.spring-web.enabled=true"
-- "-Dotel.instrumentation.http.enabled=true"
-- "-Dotel.instrumentation.servlet.enabled=true"
-- "-Dotel.instrumentation.jdbc.enabled=true"
-- "-Dotel.instrumentation.kubernetes.enabled=true"
-- "-Dotel.k8s.cluster.name=ktb-ca-prod"
-- "-Dotel.k8s.namespace.name=${NAMESPACE}"
-- "-Dotel.k8s.pod.name=${POD_NAME}"
-- "-Dotel.k8s.container.name=${CONTAINER_NAME}"
-- "-Duser.timezone=Asia/Seoul"
-
+  - "-javaagent:/otel-agent/otel-agent.jar"
+  - "-Dotel.service.name=${OTEL_SERVICE_NAME}"
+  - "-Dotel.exporter.otlp.endpoint=https://collector.kakaotech.com/"
+  - "-Dotel.instrumentation.spring-web.enabled=true"
+  - "-Dotel.instrumentation.http.enabled=true"
+  - "-Dotel.instrumentation.servlet.enabled=true"
+  - "-Dotel.instrumentation.jdbc.enabled=true"
+  - "-Dotel.instrumentation.kubernetes.enabled=true"
+  - "-Dotel.k8s.cluster.name=ktb-ca-prod"
+  - "-Dotel.k8s.namespace.name=${NAMESPACE}"
+  - "-Dotel.k8s.pod.name=${POD_NAME}"
+  - "-Dotel.k8s.container.name=${CONTAINER_NAME}"
+  - "-Duser.timezone=Asia/Seoul"
 service:
   type: ClusterIP
   port: 8080
   metricsPort: 9292
-
 ingress:
   enabled: true
   className: "nginx"
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-  - host: api.kakaotech.com
-    paths:
-    - path: /
-      pathType: Prefix
-
+    - host: api.kakaotech.com
+      paths:
+        - path: /
+          pathType: Prefix
 otelAgent:
   s3Bucket: ktb-ca-mvp-static/otel
-
 logging:
   persistence:
     enabled: true
