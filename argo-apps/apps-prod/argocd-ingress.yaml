@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: argocd.kakaotech.com
+    - host: argoprod.kakaotech.com
       http:
         paths:
           - path: /
