@@ -21,6 +21,12 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range .Values.imagePullSecrets }}
+        - name: {{ .name }}
+        {{- end }}
+      {{- end }}
       initContainers:
         - name: download-otel-agent
           image: amazon/aws-cli

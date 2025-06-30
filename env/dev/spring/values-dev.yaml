@@ -5,6 +5,9 @@ image:
   tag: dev-v17.1.0-93da7a
   pullPolicy: Always
 
+imagePullSecrets:
+- name: ecr-registry-secret
+
 resources:
   requests:
     cpu: 500m
