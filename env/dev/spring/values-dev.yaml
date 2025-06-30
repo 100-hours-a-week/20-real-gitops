@@ -46,9 +46,7 @@ env:
     fieldRef:
       fieldPath: metadata.namespace
 - name: CONTAINER_NAME
-  valueFrom:
-    fieldRef:
-      fieldPath: spec.containers[0].name
+  value: "spring"
 
 javaOpts:
 - "-javaagent:/otel-agent/otel-agent.jar"
