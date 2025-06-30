@@ -13,6 +13,14 @@ spec:
       values: |
         controller:
           region: ap-northeast-2
+        storageClasses:
+          - name: gp2
+            annotations:
+              storageclass.kubernetes.io/is-default-class: "true"
+            volumeBindingMode: WaitForFirstConsumer
+            parameters:
+              type: gp2
+            reclaimPolicy: Delete
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
