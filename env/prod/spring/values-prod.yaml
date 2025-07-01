@@ -51,7 +51,7 @@ env:
 javaOpts:
 - "-javaagent:/otel-agent/otel-agent.jar"
 - "-Dotel.service.name=${OTEL_SERVICE_NAME}"
-- "-Dotel.exporter.otlp.endpoint=http://otel-collector.observability:4317"
+- "-Dotel.exporter.otlp.endpoint=http://otel-collector.observability:4318"
 - "-Dotel.instrumentation.spring-web.enabled=true"
 - "-Dotel.instrumentation.http.enabled=true"
 - "-Dotel.instrumentation.servlet.enabled=true"
