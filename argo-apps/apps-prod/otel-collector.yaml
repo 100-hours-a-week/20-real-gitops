@@ -40,7 +40,7 @@ spec:
           processors:
             batch: {}
             resourcedetection:
-              detectors: [env, system, k8s]
+              detectors: [env, system, kubernetes]
           exporters:
             otlp:
               endpoint: https://collector.kakaotech.com
