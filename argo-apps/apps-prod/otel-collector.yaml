@@ -53,9 +53,9 @@ spec:
           exporters:
             debug: {}
             otlp:
-              endpoint: collector.kakaotech.com:80
+              endpoint: collector.kakaotech.com:443
               tls:
-                insecure: true
+                insecure: false
 
           extensions:
             health_check: {}
