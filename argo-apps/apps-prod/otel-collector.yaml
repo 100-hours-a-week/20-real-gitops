@@ -53,7 +53,7 @@ spec:
           exporters:
             debug: {}
             otlp:
-              endpoint: https://collector.kakaotech.com
+              endpoint: collector.kakaotech.com:80
               tls:
                 insecure: true
 
