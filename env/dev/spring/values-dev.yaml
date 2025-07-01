@@ -64,6 +64,7 @@ javaOpts:
 - "-Dotel.k8s.namespace.name=${NAMESPACE}"
 - "-Dotel.k8s.pod.name=${POD_NAME}"
 - "-Dotel.k8s.container.name=${CONTAINER_NAME}"
+- "-Dsun.net.inetaddr.ttl=30"
 - "-Duser.timezone=Asia/Seoul"
 
 service:
