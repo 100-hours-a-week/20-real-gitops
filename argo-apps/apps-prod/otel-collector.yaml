@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: otel-collector
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
+    chart: opentelemetry-collector
+    targetRevision: 0.65.1
+    helm:
+      values: |
+        mode: deployment
+        replicaCount: 1
+
+        config:
+          receivers:
+            otlp:
+              protocols:
+                grpc:
+                http:
+          processors:
+            batch: {}
+            resourcedetection:
+              detectors: [env, system, k8s]
+          exporters:
+            otlp:
+              endpoint: https://collector.kakaotech.com
+              tls:
+                insecure: true
+          service:
+            pipelines:
+              traces:
+                receivers: [otlp]
+                processors: [resourcedetection, batch]
+                exporters: [otlp]
+              metrics:
+                receivers: [otlp]
+                processors: [resourcedetection, batch]
+                exporters: [otlp]
+              logs:
+                receivers: [otlp]
+                processors: [resourcedetection, batch]
+                exporters: [otlp]
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

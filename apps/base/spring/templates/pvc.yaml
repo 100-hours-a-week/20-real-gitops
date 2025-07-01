@@ -1,13 +1,30 @@
-{{- if .Values.logging.persistence.enabled }}
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-logs
+  name: {{ .Release.Name }}
 spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: {{ .Values.logging.persistence.size }}
-  storageClassName: {{ .Values.logging.persistence.storageClass }}
-{{- end }} 
+  serviceName: {{ .Release.Name }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: spring
+        image: ...
+        volumeMounts:
+        - name: logs
+          mountPath: /home/ec2-user/logs
+  volumeClaimTemplates:
+  - metadata:
+      name: logs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.logging.persistence.storageClass }}
+      resources:
+        requests:
+          storage: {{ .Values.logging.persistence.size }}
