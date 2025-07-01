@@ -33,8 +33,8 @@ spec:
           receivers:
             otlp:
               protocols:
-                grpc:
-                http:
+                grpc: 0.0.0.0:4317
+                http: 0.0.0.0:4318
           processors:
             batch: {}
             resourcedetection:
