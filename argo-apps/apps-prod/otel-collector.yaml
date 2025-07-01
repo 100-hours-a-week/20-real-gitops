@@ -58,7 +58,6 @@ spec:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
                 exporters: [otlp]
-
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
