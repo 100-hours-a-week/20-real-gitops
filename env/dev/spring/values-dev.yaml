@@ -23,15 +23,15 @@ livenessProbe:
   httpGet:
     path: /monitoring-dev/health
     port: 9292
-  initialDelaySeconds: 60
-  periodSeconds: 10
+  initialDelaySeconds: 120
+  periodSeconds: 30
 
 readinessProbe:
   httpGet:
     path: /monitoring-dev/health
     port: 9292
-  initialDelaySeconds: 30
-  periodSeconds: 10
+  initialDelaySeconds: 120
+  periodSeconds: 30
 
 env:
 - name: SPRING_PROFILES_ACTIVE
