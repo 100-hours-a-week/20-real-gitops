@@ -48,7 +48,7 @@ spec:
           processors:
             batch: {}
             resourcedetection:
-              detectors: [env, system, k8s]
+              detectors: [env, system]
 
           exporters:
             debug: {}
