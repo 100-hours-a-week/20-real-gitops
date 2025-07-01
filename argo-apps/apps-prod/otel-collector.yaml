@@ -52,8 +52,8 @@ spec:
 
           exporters:
             debug: {}
-            otlp:
-              endpoint: collector.kakaotech.com:443
+            otlphttp:
+              endpoint: https://collector.kakaotech.com
               tls:
                 insecure: false
 
@@ -66,15 +66,15 @@ spec:
               traces:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlp]
+                exporters: [otlphttp]
               metrics:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlp]
+                exporters: [otlphttp]
               logs:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlp]
+                exporters: [otlphttp]
   syncPolicy:
     automated:
       prune: true
