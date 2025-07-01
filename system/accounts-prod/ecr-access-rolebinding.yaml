@@ -1,0 +1,31 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ecr-access-rolebinding
+  namespace: spring-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:spring-prod/RoleBinding:spring-prod/ecr-access-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: ecr-access-sa
+  namespace: spring-prod
+roleRef:
+  kind: Role
+  name: ecr-access-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ecr-access-rolebinding
+  namespace: next-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:next-prod/RoleBinding:next-prod/ecr-access-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: ecr-access-sa
+  namespace: next-prod
+roleRef:
+  kind: Role
+  name: ecr-access-role
+  apiGroup: rbac.authorization.k8s.io

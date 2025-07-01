@@ -8,10 +8,9 @@ spec:
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops
     targetRevision: main
-    path: system/accounts
+    path: system/accounts-prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: spring-prod
   syncPolicy:
     automated:
       prune: true

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ecr-access-sa
+  namespace: spring-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:spring-prod/ServiceAccount:spring-prod/ecr-access-sa
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ecr-access-sa
+  namespace: next-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:next-prod/ServiceAccount:next-prod/ecr-access-sa

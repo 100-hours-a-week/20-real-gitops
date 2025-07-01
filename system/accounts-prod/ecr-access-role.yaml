@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ecr-access-role
+  namespace: spring-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:spring-prod/Role:spring-prod/ecr-access-role
+rules:
+- apiGroups: [ "" ]
+  resources: [ "secrets" ]
+  verbs: [ "get", "create", "update", "patch" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ecr-access-role
+  namespace: next-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:next-prod/Role:next-prod/ecr-access-role
+rules:
+- apiGroups: [ "" ]
+  resources: [ "secrets" ]
+  verbs: [ "get", "create", "update", "patch" ]

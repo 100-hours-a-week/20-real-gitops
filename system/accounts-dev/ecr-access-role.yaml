@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ecr-access-role
+  namespace: spring-dev
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-dev:spring-dev/Role:spring-dev/ecr-access-role
+rules:
+- apiGroups: [ "" ]
+  resources: [ "secrets" ]
+  verbs: [ "get", "create", "update", "patch" ]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ecr-access-role
+  namespace: next-dev
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-dev:next-dev/Role:next-dev/ecr-access-role
+rules:
+- apiGroups: [ "" ]
+  resources: [ "secrets" ]
+  verbs: [ "get", "create", "update", "patch" ]
