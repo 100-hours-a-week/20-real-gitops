@@ -34,8 +34,9 @@ ingress:
       proxy_set_header Connection "upgrade";
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 3002
+  nodePort: 30082
 
 websocket:
   podDisruptionBudget:
