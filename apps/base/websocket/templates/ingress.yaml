@@ -16,12 +16,7 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-path: "/ws"
     nginx.ingress.kubernetes.io/enable-websocket: "true"
     nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
-    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-    nginx.ingress.kubernetes.io/proxy-set-headers: "Connection upgrade, Upgrade websocket"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
-    nginx.ingress.kubernetes.io/cors-expose-headers: "Content-Length,Content-Range"
+    
 spec:
   ingressClassName: nginx
   rules:
@@ -29,13 +24,6 @@ spec:
       http:
         paths:
           - path: /ws
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Release.Name }}
-                port:
-                  number: {{ .Values.service.port | default 3002 }}
-          - path: /ws/
             pathType: Prefix
             backend:
               service:
