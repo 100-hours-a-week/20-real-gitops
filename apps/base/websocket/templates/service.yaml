@@ -16,4 +16,7 @@ spec:
     - port: {{ .Values.service.port | default 3002 }}
       targetPort: websocket
       protocol: TCP
-      name: websocket 
+      name: websocket
+      {{- if and (eq (.Values.service.type | default "ClusterIP") "NodePort") .Values.service.nodePort }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }} 
