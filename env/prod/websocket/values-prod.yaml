@@ -10,7 +10,7 @@ imagePullSecrets:
 
 ingress:
   enabled: true
-  host: www.kakaotech.com
+  host: ws.kakaotech.com
 
 service:
   type: ClusterIP
