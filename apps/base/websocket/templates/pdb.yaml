@@ -1,0 +1,11 @@
+{{- if .Values.websocket.podDisruptionBudget.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  minAvailable: {{ .Values.websocket.podDisruptionBudget.minAvailable | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+{{- end }} 

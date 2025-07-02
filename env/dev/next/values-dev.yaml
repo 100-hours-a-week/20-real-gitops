@@ -6,15 +6,15 @@ image:
   pullPolicy: Always
 
 imagePullSecrets:
-        - name: ecr-registry-secret
+- name: ecr-registry-secret
 
 env:
-  ENV : development
+  ENV: development
 
-ingress: 
+ingress:
   enabled: true
   host: cadev.kakaotech.com
-  
+
 resources:
   requests:
     cpu: 300m
@@ -39,7 +39,7 @@ readinessProbe:
 
 service:
   type: ClusterIP
-  
+
 autoscaling:
   enabled: false
   minReplicas: 1

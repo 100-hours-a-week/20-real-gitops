@@ -1,0 +1,53 @@
+replicaCount: 2
+
+image:
+  repository: 123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/websocket-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  host: www.kakaotech.com
+
+service:
+  type: ClusterIP
+  port: 3002
+
+websocket:
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+    terminationGracePeriodSeconds: 30
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3

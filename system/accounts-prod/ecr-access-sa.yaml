@@ -13,3 +13,11 @@ metadata:
   namespace: next-prod
   annotations:
     argocd.argoproj.io/tracking-id: accounts-prod:next-prod/ServiceAccount:next-prod/ecr-access-sa
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ecr-access-sa
+  namespace: websocket-prod
+  annotations:
+    argocd.argoproj.io/tracking-id: accounts-prod:websocket-prod/ServiceAccount:websocket-prod/ecr-access-sa

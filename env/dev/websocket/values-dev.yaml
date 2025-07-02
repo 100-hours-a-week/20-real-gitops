@@ -1,0 +1,56 @@
+replicaCount: 1
+
+image:
+  repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
+  tag: ysocket-dev
+  pullPolicy: Always
+
+imagePullSecrets:
+- name: ecr-registry-secret
+
+ingress:
+  enabled: true
+  host: cadev.kakaotech.com
+
+service:
+  type: ClusterIP
+  port: 3002
+
+websocket:
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+    terminationGracePeriodSeconds: 30
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3

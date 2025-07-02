@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: websocket-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/100-hours-a-week/20-real-gitops
+    targetRevision: main
+    path: apps/base/websocket
+    helm:
+      valueFiles:
+      - ../../../env/prod/websocket/values-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: websocket-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
