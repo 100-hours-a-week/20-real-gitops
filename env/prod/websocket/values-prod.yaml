@@ -9,29 +9,7 @@ imagePullSecrets:
 - name: ecr-registry-secret
 
 ingress:
-  enabled: true
-  hosts:
-  - host: ws.kakaotech.com
-    paths:
-    - path: /
-      pathType: Prefix
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-name: "websocket-session"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "3600"
-    nginx.ingress.kubernetes.io/session-cookie-expires: "3600"
-    nginx.ingress.kubernetes.io/session-cookie-path: "/"
-    nginx.ingress.kubernetes.io/enable-websocket: "true"
-    nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
-    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header Cookie $http_cookie;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
+  enabled: false
 
 service:
   type: NodePort
