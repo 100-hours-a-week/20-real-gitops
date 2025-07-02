@@ -20,8 +20,8 @@ spec:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          - path: /ws
-            pathType: Prefix
+          - path: /ws(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ .Release.Name }}
