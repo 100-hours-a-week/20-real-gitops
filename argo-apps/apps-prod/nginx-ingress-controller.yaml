@@ -13,6 +13,7 @@ spec:
       values: |
         controller:
           kind: DaemonSet
+          allowSnippetAnnotations: true
           service:
             type: NodePort
             nodePorts:
@@ -23,8 +24,6 @@ spec:
           healthz:
             port:
               enabled: true
-
-
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
@@ -33,4 +32,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
