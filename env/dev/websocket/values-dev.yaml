@@ -10,7 +10,31 @@ imagePullSecrets:
 
 ingress:
   enabled: true
-  host: cadev.kakaotech.com
+  hosts:
+  - host: wsdev.kakaotech.com
+    paths:
+    - path: /
+      pathType: Prefix
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "websocket-session"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "3600"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "3600"
+    nginx.ingress.kubernetes.io/session-cookie-path: "/"
+    nginx.ingress.kubernetes.io/enable-websocket: "true"
+    nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/backend-protocol: "WS"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Cookie $http_cookie;
+#  tls:
+#    - hosts:
+#        - wsdev.kakaotech.com
+#      secretName: <your-tls-secret>
 
 service:
   type: ClusterIP
