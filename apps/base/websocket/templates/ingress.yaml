@@ -13,20 +13,18 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-name: "websocket-session"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "3600"
     nginx.ingress.kubernetes.io/session-cookie-expires: "3600"
-    nginx.ingress.kubernetes.io/session-cookie-path: "/ws"
+    nginx.ingress.kubernetes.io/session-cookie-path: "/"
     nginx.ingress.kubernetes.io/enable-websocket: "true"
     nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "Upgrade";
       proxy_set_header Cookie $http_cookie;
 spec:
   ingressClassName: nginx
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: ws.kakaotech.com
       http:
         paths:
-          - path: /ws
+          - path: /
             pathType: Prefix
             backend:
               service:
