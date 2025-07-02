@@ -33,21 +33,3 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: 3002
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
-
-readinessProbe:
-  httpGet:
-    path: /
-    port: 3002
-  initialDelaySeconds: 10
-  periodSeconds: 5
-  timeoutSeconds: 3
-  failureThreshold: 3
