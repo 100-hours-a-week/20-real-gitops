@@ -1,20 +1,15 @@
 replicaCount: 2
-
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: production-v4.0.0-0299e0
+  tag: production-v5.0.0-c83c0c
   pullPolicy: Always
-
 imagePullSecrets:
-- name: ecr-registry-secret
-
+  - name: ecr-registry-secret
 env:
   ENV: production
-
 ingress:
   enabled: true
   host: www.kakaotech.com
-
 resources:
   requests:
     cpu: 300m
@@ -22,24 +17,20 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
-
 livenessProbe:
   httpGet:
     path: /healthz
     port: 3000
   initialDelaySeconds: 60
   periodSeconds: 10
-
 readinessProbe:
   httpGet:
     path: /healthz
     port: 3000
   initialDelaySeconds: 30
   periodSeconds: 10
-
 service:
   type: ClusterIP
-
 autoscaling:
   enabled: true
   minReplicas: 2
