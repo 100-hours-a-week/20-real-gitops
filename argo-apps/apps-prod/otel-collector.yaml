@@ -50,7 +50,7 @@ spec:
                   - job_name: 'spring-metrics'
                     metrics_path: /monitoring-prod/prometheus
                     static_configs:
-                      - targets: ['spring-prod.spring-prod.svc.cluster.local:9292']
+                      - targets: ['spring-prod-active.spring-prod.svc.cluster.local:9292']
 
           processors:
             batch: {}
