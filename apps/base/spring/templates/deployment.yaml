@@ -44,6 +44,7 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
+              export OTEL_RESOURCE_ATTRIBUTES="service.name=spring-prod,k8s.namespace.name=$POD_NAMESPACE,k8s.pod.name=$POD_NAME,k8s.cluster.name=ktb-ca-prod"
               exec java {{ join " " .Values.javaOpts }} -jar /app/app.jar
           ports:
             - name: http
