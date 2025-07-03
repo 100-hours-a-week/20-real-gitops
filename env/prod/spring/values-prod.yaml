@@ -30,8 +30,6 @@ readinessProbe:
   initialDelaySeconds: 120
   periodSeconds: 30
 env:
-- name: OTEL_RESOURCE_ATTRIBUTES
-  value: "service.name={{ .Values.serviceName }},k8s.namespace.name=$(POD_NAMESPACE),k8s.pod.name=$(POD_NAME),k8s.cluster.name=ktb-ca-prod"
 - name: POD_NAMESPACE
   valueFrom:
     fieldRef:
