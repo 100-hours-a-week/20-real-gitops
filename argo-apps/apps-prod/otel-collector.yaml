@@ -44,6 +44,13 @@ spec:
                   endpoint: 0.0.0.0:4317
                 http:
                   endpoint: 0.0.0.0:4318
+          prometheus:
+            config:
+              scrape_configs:
+                - job_name: 'spring-metrics'
+                  metrics_path: /monitoring-prod/prometheus
+                  static_configs:
+                    - targets: ['spring-prod.spring-prod.svc.cluster.local:9292']
 
           processors:
             batch: {}
