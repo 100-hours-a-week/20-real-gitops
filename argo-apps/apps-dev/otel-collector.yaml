@@ -1,0 +1,90 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: otel-collector
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: observability
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
+    chart: opentelemetry-collector
+    targetRevision: 0.127.2
+    helm:
+      values: |
+        fullnameOverride: otel-collector
+        mode: deployment
+        replicaCount: 1
+
+        image:
+          repository: otel/opentelemetry-collector-contrib
+          tag: 0.128.0
+
+        service:
+          enabled: true
+          type: ClusterIP
+
+        ports:
+          otlp:
+            enabled: true
+            containerPort: 4317
+            servicePort: 4317
+          otlp-http:
+            enabled: true
+            containerPort: 4318
+            servicePort: 4318
+
+        config:
+          receivers:
+            otlp:
+              protocols:
+                grpc:
+                  endpoint: 0.0.0.0:4317
+                http:
+                  endpoint: 0.0.0.0:4318
+            prometheus:
+              config:
+                scrape_configs:
+                  - job_name: 'spring-metrics'
+                    metrics_path: /monitoring-dev/prometheus
+                    static_configs:
+                      - targets: ['spring-dev-active.spring-dev.svc.cluster.local:9292']
+
+          processors:
+            batch: {}
+            resourcedetection:
+              detectors: [env, system]
+
+          exporters:
+            debug: {}
+            otlphttp:
+              endpoint: https://collector.kakaotech.com
+              tls:
+                insecure: false
+
+          extensions:
+            health_check: {}
+
+          service:
+            extensions: [health_check]
+            pipelines:
+              traces:
+                receivers: [otlp]
+                processors: [resourcedetection, batch]
+                exporters: [otlphttp]
+              metrics:
+                receivers: [otlp, prometheus]
+                processors: [resourcedetection, batch]
+                exporters: [otlphttp]
+              logs:
+                receivers: [otlp]
+                processors: [resourcedetection, batch]
+                exporters: [otlphttp]
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
