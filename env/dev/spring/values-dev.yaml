@@ -1,13 +1,10 @@
 replicaCount: 1
-
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: dev-v17.1.0-93da7a
+  tag: dev-v27.1.0-fc542a
   pullPolicy: Always
-
 imagePullSecrets:
-- name: ecr-registry-secret
-
+  - name: ecr-registry-secret
 resources:
   requests:
     cpu: 500m
@@ -15,85 +12,74 @@ resources:
   limits:
     cpu: 1000m
     memory: 1024Mi
-
 autoscaling:
   enabled: false
-
 livenessProbe:
   httpGet:
     path: /monitoring-dev/health
     port: 9292
   initialDelaySeconds: 120
   periodSeconds: 30
-
 readinessProbe:
   httpGet:
     path: /monitoring-dev/health
     port: 9292
   initialDelaySeconds: 120
   periodSeconds: 30
-
 env:
-- name: SPRING_PROFILES_ACTIVE
-  value: "dev"
-- name: JAVA_OPTS
-  value: "-Xms256m -Xmx512m"
-- name: OTEL_SERVICE_NAME
-  value: "spring-dev"
-- name: POD_NAME
-  valueFrom:
-    fieldRef:
-      fieldPath: metadata.name
-- name: NAMESPACE
-  valueFrom:
-    fieldRef:
-      fieldPath: metadata.namespace
-- name: CONTAINER_NAME
-  value: "spring"
-
+  - name: SPRING_PROFILES_ACTIVE
+    value: "dev"
+  - name: JAVA_OPTS
+    value: "-Xms256m -Xmx512m"
+  - name: OTEL_SERVICE_NAME
+    value: "spring-dev"
+  - name: POD_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: NAMESPACE
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.namespace
+  - name: CONTAINER_NAME
+    value: "spring"
 javaOpts:
-- "-javaagent:/otel-agent/otel-agent.jar"
-- "-Dotel.service.name=${OTEL_SERVICE_NAME}"
-- "-Dotel.exporter.otlp.endpoint=http://otel-collector.observability:4318"
-- "-Dotel.instrumentation.spring-web.enabled=true"
-- "-Dotel.instrumentation.http.enabled=true"
-- "-Dotel.instrumentation.servlet.enabled=true"
-- "-Dotel.instrumentation.jdbc.enabled=true"
-- "-Dotel.instrumentation.kubernetes.enabled=true"
-- "-Dotel.k8s.cluster.name=ktb-ca-dev"
-- "-Dotel.k8s.namespace.name=${NAMESPACE}"
-- "-Dotel.k8s.pod.name=${POD_NAME}"
-- "-Dotel.k8s.container.name=${CONTAINER_NAME}"
-- "-Dsun.net.inetaddr.ttl=30"
-- "-Duser.timezone=Asia/Seoul"
-
+  - "-javaagent:/otel-agent/otel-agent.jar"
+  - "-Dotel.service.name=${OTEL_SERVICE_NAME}"
+  - "-Dotel.exporter.otlp.endpoint=http://otel-collector.observability:4318"
+  - "-Dotel.instrumentation.spring-web.enabled=true"
+  - "-Dotel.instrumentation.http.enabled=true"
+  - "-Dotel.instrumentation.servlet.enabled=true"
+  - "-Dotel.instrumentation.jdbc.enabled=true"
+  - "-Dotel.instrumentation.kubernetes.enabled=true"
+  - "-Dotel.k8s.cluster.name=ktb-ca-dev"
+  - "-Dotel.k8s.namespace.name=${NAMESPACE}"
+  - "-Dotel.k8s.pod.name=${POD_NAME}"
+  - "-Dotel.k8s.container.name=${CONTAINER_NAME}"
+  - "-Dsun.net.inetaddr.ttl=30"
+  - "-Duser.timezone=Asia/Seoul"
 service:
   type: ClusterIP
   port: 8080
   metricsPort: 9292
-
 ingress:
   enabled: true
   className: "nginx"
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-  - host: cadev.kakaotech.com
-    paths:
-    - path: /api
-      pathType: Prefix
-
+    - host: cadev.kakaotech.com
+      paths:
+        - path: /api
+          pathType: Prefix
 otelAgent:
   s3Bucket: ktb-ca-mvp-static/otel
-
 logging:
   persistence:
     enabled: false
-
 serviceAccount:
   create: true
   name: spring-dev-sa
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::982640051576:role/eksctl-ktb-ca-dev-cluster-addon-iamserviceacc-Role1-L2DQmx8U7d1D
-
 # 커밋용 주석afaf
