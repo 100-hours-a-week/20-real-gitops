@@ -5,8 +5,8 @@ image:
   tag: development-v4.11.0-cf1723
   pullPolicy: Always
 
-imagePullSecrets:
-- name: ecr-registry-secret
+# imagePullSecrets:
+# - name: ecr-registry-secret
 
 env:
   ENV: development
