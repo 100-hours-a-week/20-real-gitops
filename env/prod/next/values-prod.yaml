@@ -4,12 +4,22 @@ image:
   tag: production-v7.0.0-dcec1c
   pullPolicy: Always
 imagePullSecrets:
-  - name: ecr-registry-secret
+- name: ecr-registry-secret
 env:
   ENV: production
 ingress:
   enabled: true
-  host: www.kakaotech.com
+  hosts:
+  - host: www.kakaotech.com
+    paths:
+    - path: /
+      pathType: Prefix
+  - host: kakaotech.com
+    paths:
+    - path: /
+      pathType: Prefix
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 resources:
   requests:
     cpu: 300m
@@ -31,6 +41,7 @@ readinessProbe:
   periodSeconds: 10
 service:
   type: ClusterIP
+  port: 80
 autoscaling:
   enabled: true
   minReplicas: 2
