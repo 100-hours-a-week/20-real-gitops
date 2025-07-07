@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops.git
-    targetRevision: main
+    targetRevision: eks
     path: system/cronjobs/prod/spring
   destination:
     server: https://kubernetes.default.svc

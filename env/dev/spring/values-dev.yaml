@@ -77,9 +77,3 @@ otelAgent:
 logging:
   persistence:
     enabled: false
-serviceAccount:
-  create: true
-  name: spring-dev-sa
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::982640051576:role/eksctl-ktb-ca-dev-cluster-addon-iamserviceacc-Role1-L2DQmx8U7d1D
-# 커밋용 주석afaf

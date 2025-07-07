@@ -86,8 +86,3 @@ logging:
     storageClass: "gp2"
   retention:
     days: 30
-serviceAccount:
-  create: false
-  name: spring-prod-sa
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::982640051576:role/eksctl-ktb-ca-prod-cluster-addon-iamserviceacc-Role1-111111111111
