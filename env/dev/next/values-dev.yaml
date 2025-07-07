@@ -5,8 +5,8 @@ image:
   tag: development-v4.11.0-cf1723
   pullPolicy: Always
 
-# imagePullSecrets:
-# - name: ecr-registry-secret
+imagePullSecrets:
+- name: ecr-registry-secret
 
 env:
   ENV: development
@@ -46,3 +46,9 @@ autoscaling:
   maxReplicas: 1
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
+
+serviceAccount:
+  create: false
+  name: next-dev-sa
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::982640051576:role/eksctl-ktb-ca-dev-cluster-addon-iamserviceacc-Role1-L2DQmx8U7d1D

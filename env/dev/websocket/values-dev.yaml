@@ -5,8 +5,8 @@ image:
   tag: ysocket-dev
   pullPolicy: Always
 
-# imagePullSecrets:
-# - name: ecr-registry-secret
+imagePullSecrets:
+- name: ecr-registry-secret
 
 ingress:
   enabled: false
