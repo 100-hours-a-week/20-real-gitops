@@ -32,6 +32,10 @@ spec:
               - disk
               - filesystem
               - network
+
+          extraEnv:
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://otel-collector.observability.svc.cluster.local:4317
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
