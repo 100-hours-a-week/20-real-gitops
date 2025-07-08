@@ -15,7 +15,7 @@ spec:
           enabled: false
 
         signoz:
-          otelCollectorEndpoint: otel-collector.observability.svc.cluster.local:4317
+          otelCollectorEndpoint: http://otel-collector.observability.svc.cluster.local:4317
 
         infra:
           container:
@@ -32,14 +32,6 @@ spec:
               - disk
               - filesystem
               - network
-
-          agent:
-            enabled: true
-            env:
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://otel-collector.observability.svc.cluster.local:4317
-            - name: OTEL_EXPORTER_OTLP_INSECURE
-              value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
