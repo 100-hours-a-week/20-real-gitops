@@ -19,5 +19,5 @@ spec:
               service:
                 name: {{ .Release.Name }}-active
                 port:
-                  number: 80
+                  number: 3000
 {{- end }}
