@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-infra-otel-collector
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.signoz.io
+    chart: signoz-otel-collector
+    targetRevision: 0.10.1
+    helm:
+      values: |
+        otelCollector:
+          enabled: false
+
+        signoz:
+          otelCollectorEndpoint: otel-collector.observability.svc.cluster.local:4317
+
+        infra:
+          container:
+            enabled: true
+          host:
+            enabled: true
+
+          hostmetrics:
+            enabled: true
+            collection_interval: 30s
+            receivers:
+              - cpu
+              - memory
+              - disk
+              - filesystem
+              - network
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
