@@ -35,11 +35,11 @@ spec:
 
           agent:
             enabled: true
-            config:
-              exporters:
-                otlp:
-                  endpoint: http://otel-collector.observability.svc.cluster.local:4317
-                  insecure: true
+            env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://otel-collector.observability.svc.cluster.local:4317
+            - name: OTEL_EXPORTER_OTLP_INSECURE
+              value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
