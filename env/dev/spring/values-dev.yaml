@@ -83,3 +83,5 @@ logging:
     enabled: false
 serviceAccount:
   name: ecr-access-sa
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::982640051576:role/ktb-ca-eks-pod-ssm-role
