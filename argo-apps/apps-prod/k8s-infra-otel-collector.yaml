@@ -38,7 +38,6 @@ spec:
             exporters:
               otlp:
                 endpoint: http://otel-collector.observability.svc.cluster.local:4317
-                insecure: true
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
