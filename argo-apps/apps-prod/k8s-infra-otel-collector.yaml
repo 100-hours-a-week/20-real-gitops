@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: k8s-infra-otel-collector
+  name: k8s-infra
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://charts.signoz.io
-    chart: signoz-otel-collector
-    targetRevision: 0.10.1
+    chart: k8s-infra
+    targetRevision: 0.13.0
     helm:
       values: |
         otelCollector:
