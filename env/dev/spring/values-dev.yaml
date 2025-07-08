@@ -81,3 +81,5 @@ otelAgent:
 logging:
   persistence:
     enabled: false
+serviceAccount:
+  name: ecr-access-sa
