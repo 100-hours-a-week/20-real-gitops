@@ -46,9 +46,3 @@ autoscaling:
   maxReplicas: 1
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
-
-serviceAccount:
-  create: false
-  name: next-dev-sa
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::982640051576:role/eksctl-ktb-ca-dev-cluster-addon-iamserviceacc-Role1-L2DQmx8U7d1D
