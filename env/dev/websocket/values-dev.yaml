@@ -51,3 +51,8 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+sidecar:
+  enabled: true
+  image: nginx:1.27-alpine
+  port: 80

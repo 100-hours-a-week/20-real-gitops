@@ -12,11 +12,16 @@ spec:
       timeoutSeconds: 3600
   selector:
     app: {{ .Release.Name }}
+  # ports:
+  #   - port: {{ .Values.service.port | default 3002 }}
+  #     targetPort: websocket
+  #     protocol: TCP
+  #     name: websocket
+  #     {{- if and (eq (.Values.service.type | default "ClusterIP") "NodePort") .Values.service.nodePort }}
+  #     nodePort: {{ .Values.service.nodePort }}
+  #     {{- end }} 
   ports:
-    - port: {{ .Values.service.port | default 3002 }}
-      targetPort: websocket
+    - port: {{ .Values.service.port | default 80 }}     # Service 포트 = nginx(80)
+      targetPort: strip                                 # name 필드와 일치
       protocol: TCP
-      name: websocket
-      {{- if and (eq (.Values.service.type | default "ClusterIP") "NodePort") .Values.service.nodePort }}
-      nodePort: {{ .Values.service.nodePort }}
-      {{- end }} 
+      name: strip
