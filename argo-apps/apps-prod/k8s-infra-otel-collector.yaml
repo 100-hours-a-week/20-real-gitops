@@ -32,6 +32,10 @@ spec:
               - disk
               - filesystem
               - network
+          agent:
+            env:
+              - name: K8S_CLUSTER_NAME
+                value: prod-cluster
 
         otelAgent:
           config:
