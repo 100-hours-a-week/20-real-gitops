@@ -38,6 +38,7 @@ spec:
             exporters:
               otlp:
                 endpoint: http://otel-collector.observability.svc.cluster.local:4317
+            k8s_cluster_name: prod-cluster
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
