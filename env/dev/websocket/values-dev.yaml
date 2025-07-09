@@ -10,7 +10,7 @@ imagePullSecrets:
 
 ingress:
   enabled: true
-  ingressClassName: alb          # ← annotation과 동일
+  ingressClassName: alb          
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
@@ -19,14 +19,14 @@ ingress:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:982640051576:certificate/def4ed90-5a1b-4c71-bc0c-2e8cb204e378
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/group.name: ktb-ca-dev-alb-group
-    alb.ingress.kubernetes.io/order: '1'
-  hosts:                           # ★ rules를 만드는 핵심
+    alb.ingress.kubernetes.io/group.order: '1'
+  hosts:                           
     - host: cadev.kakaotech.com
-      paths:
-        - path: /ws               # WebSocket 엔드포인트 (예시)
+      paths:  
+        - path: /ws               
           pathType: Prefix
 service:
-  type: ClusterIP                 # target-type=ip일 땐 ClusterIP 권장
+  type: ClusterIP                 
   port: 3002
 
 service:
