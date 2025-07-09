@@ -20,6 +20,8 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/group.name: ktb-ca-dev-alb-group
     alb.ingress.kubernetes.io/group.order: '10'
+    alb.ingress.kubernetes.io/conditions.websocket: >
+      [{"field":"http-header","httpHeaderConfig":{"httpHeaderName":"Upgrade","values":["websocket"]}}]
   hosts:                           
     - host: cadev.kakaotech.com
       paths:  
