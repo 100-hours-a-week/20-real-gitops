@@ -23,16 +23,11 @@ ingress:
   hosts:                           
     - host: cadev.kakaotech.com
       paths:  
-        - path: /ws               
+        - path: /   
           pathType: Prefix
 service:
   type: ClusterIP                 
   port: 3002
-
-service:
-  type: NodePort
-  port: 3002
-  nodePort: 30082
 
 websocket:
   podDisruptionBudget:
