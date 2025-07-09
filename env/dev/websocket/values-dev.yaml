@@ -23,7 +23,7 @@ ingress:
   hosts:                           
     - host: cadev.kakaotech.com
       paths:  
-        - path: /   
+        - path: /ws
           pathType: Prefix
 service:
   type: ClusterIP                 
