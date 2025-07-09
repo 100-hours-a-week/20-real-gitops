@@ -33,9 +33,13 @@ spec:
               - filesystem
               - network
           agent:
-            env:
-              - name: K8S_CLUSTER_NAME
-                value: prod-cluster
+            config:
+              processors:
+                resource:
+                  attributes:
+                    - key: k8s.cluster.name
+                      value: prod-cluster
+                      action: insert
 
         otelAgent:
           config:
