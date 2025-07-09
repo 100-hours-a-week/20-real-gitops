@@ -80,7 +80,7 @@ ingress:
     alb.ingress.kubernetes.io/healthcheck-path: /monitoring-dev/health
     alb.ingress.kubernetes.io/healthcheck-port: '9292'
     alb.ingress.kubernetes.io/success-codes: '200'
-    alb.ingress.kubernetes.io/group.order: '10'
+    alb.ingress.kubernetes.io/group.order: '20'
   hosts:
     - host: cadev.kakaotech.com
       paths:
