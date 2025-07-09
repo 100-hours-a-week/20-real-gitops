@@ -77,6 +77,9 @@ ingress:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:982640051576:certificate/def4ed90-5a1b-4c71-bc0c-2e8cb204e378
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/group.name: ktb-ca-dev-alb-group
+    alb.ingress.kubernetes.io/healthcheck-path: /monitoring-dev/health
+    alb.ingress.kubernetes.io/healthcheck-port: '9292'
+    alb.ingress.kubernetes.io/success-codes: '200'
   hosts:
     - host: cadev.kakaotech.com
       paths:
