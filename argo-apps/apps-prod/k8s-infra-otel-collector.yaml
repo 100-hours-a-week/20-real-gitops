@@ -1,49 +1,49 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: k8s-infra
-#   namespace: argocd
-# spec:
-#   project: default
-#   source:
-#     repoURL: https://charts.signoz.io
-#     chart: k8s-infra
-#     targetRevision: 0.12.0
-#     helm:
-#       values: |
-#         otelCollector:
-#           enabled: false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-infra
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.signoz.io
+    chart: k8s-infra
+    targetRevision: 0.12.0
+    helm:
+      values: |
+        otelCollector:
+          enabled: false
 
-#         otelCollectorEndpoint: http://otel-collector.observability.svc.cluster.local:4317
-#         otelInsecure: true
+        otelCollectorEndpoint: http://otel-collector.observability.svc.cluster.local:4317
+        otelInsecure: true
 
-#         infra:
-#           container:
-#             enabled: true
-#           host:
-#             enabled: true
+        infra:
+          container:
+            enabled: true
+          host:
+            enabled: true
 
-#           hostmetrics:
-#             enabled: true
-#             collection_interval: 30s
-#             receivers:
-#               - cpu
-#               - memory
-#               - disk
-#               - filesystem
-#               - network
+          hostmetrics:
+            enabled: true
+            collection_interval: 30s
+            receivers:
+              - cpu
+              - memory
+              - disk
+              - filesystem
+              - network
 
-#         otelAgent:
-#           config:
-#             exporters:
-#               otlp:
-#                 endpoint: http://otel-collector.observability.svc.cluster.local:4317
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: observability
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#     - CreateNamespace=true
+        otelAgent:
+          config:
+            exporters:
+              otlp:
+                endpoint: http://otel-collector.observability.svc.cluster.local:4317
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
