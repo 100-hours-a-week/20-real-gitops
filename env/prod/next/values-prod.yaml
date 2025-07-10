@@ -4,20 +4,21 @@ image:
   tag: production-v21.0.0-b27d54
   pullPolicy: Always
 imagePullSecrets:
-  - name: ecr-registry-secret
+- name: ecr-registry-secret
 env:
   ENV: production
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: https://collector.kakaotech.com/v1/traces
 ingress:
   enabled: true
   hosts:
-    - host: www.kakaotech.com
-      paths:
-        - path: /
-          pathType: Prefix
-    - host: kakaotech.com
-      paths:
-        - path: /
-          pathType: Prefix
+  - host: www.kakaotech.com
+    paths:
+    - path: /
+      pathType: Prefix
+  - host: kakaotech.com
+    paths:
+    - path: /
+      pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 resources:
