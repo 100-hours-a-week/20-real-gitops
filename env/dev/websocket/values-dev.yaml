@@ -20,6 +20,9 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/group.name: ktb-ca-dev-alb-group
     alb.ingress.kubernetes.io/group.order: '10'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-port: '3002'
+    alb.ingress.kubernetes.io/success-codes: '200'
   hosts:                           
     - host: cadev.kakaotech.com
       paths:  
@@ -30,6 +33,20 @@ service:
   name: websocket
   type: ClusterIP                 
   port: 3002
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 10
+  periodSeconds: 5
 
 websocket:
   podDisruptionBudget:
