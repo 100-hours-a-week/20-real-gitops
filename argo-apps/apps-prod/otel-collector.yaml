@@ -75,15 +75,15 @@ spec:
               traces:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlphttp]
+                exporters: [otlphttp, otlphttp/json]
               metrics:
                 receivers: [otlp, prometheus]
                 processors: [resourcedetection, batch]
-                exporters: [otlphttp]
+                exporters: [otlphttp, otlphttp/json]
               logs:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlphttp]
+                exporters: [otlphttp, otlphttp/json]
   syncPolicy:
     automated:
       prune: true
