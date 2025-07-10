@@ -13,7 +13,11 @@ env:
 
 ingress:
   enabled: true
-  host: cadev.kakaotech.com
+  hosts:
+  - host: cadev.kakaotech.com
+    paths:
+    - path: /
+      pathType: Prefix
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
@@ -49,6 +53,7 @@ readinessProbe:
 
 service:
   type: ClusterIP
+  port: 80
 
 autoscaling:
   enabled: false
