@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-infra
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.signoz.io
+    chart: k8s-infra
+    targetRevision: 0.13.0
+    helm:
+      values: |
+        global:
+          cloud: others
+          clusterName: prod-cluster
+          deploymentEnvironment: prod
+
+        otelCollectorEndpoint: http://otel-collector.observability.svc.cluster.local:4317
+        otelInsecure: true
+
+        presets:
+          otlpExporter:
+            enabled: true
+          loggingExporter:
+            enabled: false
+
+        infra:
+          container:
+            enabled: true
+          host:
+            enabled: true
+          hostmetrics:
+            enabled: true
+            collection_interval: 30s
+            receivers:
+              - cpu
+              - memory
+              - disk
+              - filesystem
+              - network
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
