@@ -10,7 +10,7 @@ imagePullSecrets:
 
 ingress:
   enabled: true
-  ingressClassName: alb          
+  ingressClassName: alb
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
@@ -25,14 +25,19 @@ ingress:
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/backend-protocol: HTTP
     alb.ingress.kubernetes.io/backend-protocol-version: HTTP1
-  hosts:                           
-    - host: cadev.kakaotech.com
-      paths:  
-        - path: /ws
-          pathType: Prefix
-          
+    # WebSocket 업그레이드 지원을 위한 설정
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=3600
+    alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=3600
+    # WebSocket 헤더 전달
+    alb.ingress.kubernetes.io/conditions.websocket: '[{"Field":"http-header","HttpHeaderConfig":{"HttpHeaderName":"Upgrade","Values":["websocket"]}}]'
+  hosts:
+  - host: cadev.kakaotech.com
+    paths:
+    - path: /ws
+      pathType: Prefix
+
 service:
-  type: ClusterIP                 
+  type: ClusterIP
   port: 3002
 
 livenessProbe:
