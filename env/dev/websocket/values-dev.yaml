@@ -24,6 +24,7 @@ ingress:
     alb.ingress.kubernetes.io/healthcheck-port: '3002'
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/backend-protocol-version: HTTP1
   hosts:                           
     - host: cadev.kakaotech.com
       paths:  
