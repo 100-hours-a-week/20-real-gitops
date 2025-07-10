@@ -20,12 +20,10 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/group.name: ktb-ca-dev-alb-group
     alb.ingress.kubernetes.io/group.order: '10'
-    alb.ingress.kubernetes.io/conditions.websocket: >
-      [{"field":"http-header","httpHeaderConfig":{"httpHeaderName":"Upgrade","values":["websocket"]}}]
   hosts:                           
     - host: cadev.kakaotech.com
       paths:  
-        - path: /
+        - path: /ws
           pathType: Prefix
 service:
   type: ClusterIP                 
@@ -51,8 +49,3 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
-
-sidecar:
-  enabled: true
-  image: nginx:1.27-alpine
-  port: 80
