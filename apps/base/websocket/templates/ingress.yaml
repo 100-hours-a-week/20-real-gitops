@@ -29,7 +29,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ .Values.service.name | default (printf "%s-service" .Release.Name) }}
+                name: {{ $.Values.service.name | default $.Release.Name }}
                 port:
                   number: {{ $.Values.service.port | default 3002 }}
           {{- end }}

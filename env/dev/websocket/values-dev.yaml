@@ -25,6 +25,7 @@ ingress:
       paths:  
         - path: /ws
           pathType: Prefix
+          
 service:
   name: websocket
   type: ClusterIP                 
