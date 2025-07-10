@@ -30,7 +30,6 @@ ingress:
           pathType: Prefix
           
 service:
-  name: websocket
   type: ClusterIP                 
   port: 3002
 
