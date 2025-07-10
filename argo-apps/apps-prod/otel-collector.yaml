@@ -44,8 +44,6 @@ spec:
                   endpoint: 0.0.0.0:4317
                 http:
                   endpoint: 0.0.0.0:4318
-                  json: true
-                  include_metadata: true
             prometheus:
               config:
                 scrape_configs:
@@ -75,15 +73,15 @@ spec:
               traces:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlphttp, otlphttp/json]
+                exporters: [otlphttp]
               metrics:
                 receivers: [otlp, prometheus]
                 processors: [resourcedetection, batch]
-                exporters: [otlphttp, otlphttp/json]
+                exporters: [otlphttp]
               logs:
                 receivers: [otlp]
                 processors: [resourcedetection, batch]
-                exporters: [otlphttp, otlphttp/json]
+                exporters: [otlphttp]
   syncPolicy:
     automated:
       prune: true
