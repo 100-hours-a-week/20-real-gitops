@@ -7,10 +7,10 @@ metadata:
     {{- if .Values.ingress.annotations }}
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- else }}
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: alb
     {{- end }}
 spec:
-  ingressClassName: nginx
+  ingressClassName: alb
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
