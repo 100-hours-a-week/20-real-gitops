@@ -44,6 +44,8 @@ spec:
                   endpoint: 0.0.0.0:4317
                 http:
                   endpoint: 0.0.0.0:4318
+                  json: true
+                  include_metadata: true
             prometheus:
               config:
                 scrape_configs:
