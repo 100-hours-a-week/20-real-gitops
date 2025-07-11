@@ -11,16 +11,24 @@ env:
 ingress:
   enabled: true
   hosts:
-    - host: www.kakaotech.com
+    - host: test-www.kakaotech.com
       paths:
         - path: /
           pathType: Prefix
-    - host: kakaotech.com
+    - host: test.kakaotech.com
       paths:
         - path: /
           pathType: Prefix
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:982640051576:certificate/def4ed90-5a1b-4c71-bc0c-2e8cb204e378
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/group.name: ktb-ca-prod-alb-group
+    alb.ingress.kubernetes.io/group.order: '30'
+  ingressClassName: alb
 resources:
   requests:
     cpu: 300m

@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: argoprod.kakaotech.com
+  - host: argoprod-test.kakaotech.com
     http:
       paths:
         - path: /

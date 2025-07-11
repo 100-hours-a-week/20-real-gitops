@@ -9,12 +9,50 @@ imagePullSecrets:
 - name: ecr-registry-secret
 
 ingress:
-  enabled: false
+  enabled: true
+  ingressClassName: alb
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:982640051576:certificate/def4ed90-5a1b-4c71-bc0c-2e8cb204e378
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/group.name: ktb-ca-prod-alb-group
+    alb.ingress.kubernetes.io/group.order: '10'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-port: '3002'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/backend-protocol-version: HTTP1
+    # WebSocket 업그레이드 지원을 위한 설정
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=3600
+    alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=3600
+    # WebSocket 헤더 전달
+    alb.ingress.kubernetes.io/conditions.websocket: '[{"Field":"http-header","HttpHeaderConfig":{"HttpHeaderName":"Upgrade","Values":["websocket"]}}]'
+  hosts:
+  - host: test-ws.kakaotech.com
+    paths:
+    - path: /ws
+      pathType: Prefix
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 3002
-  nodePort: 30082
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 3002
+  initialDelaySeconds: 30
+  periodSeconds: 5
 
 websocket:
   podDisruptionBudget:

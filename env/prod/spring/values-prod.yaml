@@ -48,6 +48,8 @@ env:
     value: "spring"
   - name: AWS_REGION
     value: ap-northeast-2
+  - name: AWS_DEFAULT_REGION
+    value: ap-northeast-2
 javaOpts:
   - "-javaagent:/otel-agent/otel-agent.jar"
   - "-Dotel.service.name=${OTEL_SERVICE_NAME}"
@@ -69,14 +71,24 @@ service:
   metricsPort: 9292
 ingress:
   enabled: true
-  className: "nginx"
+  className: "alb"
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:982640051576:certificate/def4ed90-5a1b-4c71-bc0c-2e8cb204e378
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/group.name: ktb-ca-prod-alb-group
+    alb.ingress.kubernetes.io/healthcheck-path: /monitoring-prod/health
+    alb.ingress.kubernetes.io/healthcheck-port: '9292'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/group.order: '20'
   hosts:
-    - host: api.kakaotech.com
-      paths:
-        - path: /
-          pathType: Prefix
+  - host: test-api.kakaotech.com
+    paths:
+    - path: /api
+      pathType: Prefix
 otelAgent:
   s3Bucket: ktb-ca-mvp-static/otel
 logging:
@@ -86,3 +98,5 @@ logging:
     storageClass: "gp2"
   retention:
     days: 30
+serviceAccount:
+  name: ecr-access-sa
