@@ -31,7 +31,7 @@ ingress:
     # WebSocket 헤더 전달
     alb.ingress.kubernetes.io/conditions.websocket: '[{"Field":"http-header","HttpHeaderConfig":{"HttpHeaderName":"Upgrade","Values":["websocket"]}}]'
   hosts:
-  - host: test-ws.kakaotech.com
+  - host: ws.kakaotech.com
     paths:
     - path: /ws
       pathType: Prefix

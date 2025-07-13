@@ -11,11 +11,11 @@ env:
 ingress:
   enabled: true
   hosts:
-    - host: test-www.kakaotech.com
+    - host: www.kakaotech.com
       paths:
         - path: /
           pathType: Prefix
-    - host: test.kakaotech.com
+    - host: kakaotech.com
       paths:
         - path: /
           pathType: Prefix

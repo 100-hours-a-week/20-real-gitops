@@ -85,7 +85,7 @@ ingress:
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/group.order: '20'
   hosts:
-  - host: test-api.kakaotech.com
+  - host: api.kakaotech.com
     paths:
     - path: /api
       pathType: Prefix
