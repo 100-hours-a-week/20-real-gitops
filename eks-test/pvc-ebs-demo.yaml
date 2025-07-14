@@ -1,0 +1,21 @@
+# pvc-ebs-demo.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: ebs-pvc-demo }
+spec:
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 1Gi } }
+  storageClassName: gp2     # or gp3
+---
+apiVersion: v1
+kind: Pod
+metadata: { name: ebs-writer }
+spec:
+  containers:
+  - name: writer
+    image: amazonlinux:2023
+    command: ["sh","-c","echo SUCCESS > /data/out.txt && sleep 3600"]
+    volumeMounts: [{ name: data, mountPath: /data }]
+  volumes:
+  - name: data
+    persistentVolumeClaim: { claimName: ebs-pvc-demo }

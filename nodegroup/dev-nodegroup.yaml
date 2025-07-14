@@ -1,0 +1,30 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ktb-ca-dev-cluster
+  region: ap-northeast-2
+
+vpc:
+  id: vpc-0f880f5c4668947e6
+  securityGroup: sg-035ed7668af1caf28
+  subnets:
+    private:
+      ap-northeast-2a:
+        id: subnet-0460816d18fe82669
+      ap-northeast-2b:
+        id: subnet-05ff4c0ca19bde671
+
+managedNodeGroups:
+  - name: ktb-ca-dev-node-group
+    instanceType: t3.medium
+    desiredCapacity: 0
+    minSize: 0
+    maxSize: 2
+    privateNetworking: true
+    ssh:
+      allow: true
+      publicKeyName: ubuntu_river
+    iam:
+      instanceRoleARN: arn:aws:iam::982640051576:role/ktb-ca-dev-node-group-role
+    volumeSize: 20
