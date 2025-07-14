@@ -1,6 +1,6 @@
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: prod-v31.2.0-47a454
+  tag: prod-v33.0.0-a13ab5
   pullPolicy: Always
 imagePullSecrets:
   - name: ecr-registry-secret
@@ -87,10 +87,10 @@ ingress:
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/group.order: '20'
   hosts:
-  - host: api.kakaotech.com
-    paths:
-    - path: /api
-      pathType: Prefix
+    - host: api.kakaotech.com
+      paths:
+        - path: /api
+          pathType: Prefix
 otelAgent:
   s3Bucket: ktb-ca-mvp-static/otel
 logging:
