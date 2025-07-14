@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/100-hours-a-week/20-real-gitops
-    targetRevision: eks
+    targetRevision: main
     path: argo-apps/apps-dev
     directory:
       recurse: true
