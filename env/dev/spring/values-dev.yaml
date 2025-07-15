@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: dev-v34.0.1-68bf8c
+  tag: dev-v3.1.1-00c68f
   pullPolicy: Always
 imagePullSecrets:
   - name: ecr-registry-secret
