@@ -1,6 +1,6 @@
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: prod-v3.1.2-4dedbd
+  tag: prod-v38.0.0-6c954b
   pullPolicy: Always
 imagePullSecrets:
   - name: ecr-registry-secret
