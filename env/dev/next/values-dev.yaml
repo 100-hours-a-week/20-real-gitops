@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
-  tag: development-v9.2.0-da05d7
+  tag: development-v30.1.0-9a080b
   pullPolicy: Always
 
 imagePullSecrets:
