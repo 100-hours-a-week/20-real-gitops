@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
   tag: production-v28.0.0-8811ac
@@ -53,7 +53,7 @@ service:
   port: 80
 autoscaling:
   enabled: true
-  minReplicas: 2
-  maxReplicas: 2
+  minReplicas: 1
+  maxReplicas: 1
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
