@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
   tag: ysocket-prod
-  pullPolicy: Always
+  pullPolicy: Always 
 
 imagePullSecrets:
 - name: ecr-registry-secret
@@ -69,8 +69,8 @@ autoscaling:
 
 resources:
   requests:
-    cpu: 1Gi
+    cpu: 500m
     memory: 1Gi
   limits:
-    cpu: 500m
+    cpu: 1000m
     memory: 1Gi
