@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: 982640051576.dkr.ecr.ap-northeast-2.amazonaws.com/ktb-ca-infra-registry
